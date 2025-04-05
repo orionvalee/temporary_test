@@ -43,4 +43,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
         resultsContainer.classList.remove('hidden');
     });
+
+    const initializePollButton = document.getElementById('initialize-poll');
+    const pollTitleInput = document.getElementById('poll-title');
+    const pollDescriptionInput = document.getElementById('poll-description');
+    const pollOptionsInput = document.getElementById('poll-options-input');
+
+    initializePollButton.addEventListener('click', () => {
+        const title = pollTitleInput.value.trim();
+        const description = pollDescriptionInput.value.trim();
+        const options = pollOptionsInput.value.split(',').map(option => option.trim()).filter(option => option);
+
+        if (!title || !description || options.length < 2) {
+            alert('Please provide a title, description, and at least two options.');
+            return;
+        }
+
+        // Update the poll title and description
+        document.querySelector('h1').textContent = title;
+        document.querySelector('p').textContent = description;
+
+        // Clear existing options and render new ones
+        const pollContainer = document.getElementById('poll-options');
+        pollContainer.innerHTML = '';
+        options.forEach((option, index) => {
+            const optionDiv = document.createElement('div');
+            optionDiv.innerHTML = `
+                <label>
+                    <input type="radio" name="poll" value="${index}">
+                    ${option}
+                </label>
+            `;
+            pollContainer.appendChild(optionDiv);
+        });
+
+        // Clear inputs
+        pollTitleInput.value = '';
+        pollDescriptionInput.value = '';
+        pollOptionsInput.value = '';
+
+        alert('Poll initialized successfully!');
+    });
 });
