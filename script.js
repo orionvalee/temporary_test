@@ -85,3 +85,16 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Poll initialized successfully!');
     });
 });
+
+function handleCredentialResponse(response) {
+    console.log('Encoded JWT ID token: ' + response.credential);
+    alert('Sign-In Successful!');
+}
+
+window.onload = function () {
+    const script = document.createElement('script');
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+};
